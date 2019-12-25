@@ -1,0 +1,31 @@
+<style type="text/css">
+table.TB_COLLAPSE {
+  border-collapse:separate;
+}
+caption {
+  padding:10px;
+  font-size:24px;
+  background-color:#f3f6f9;
+}
+body{
+ font-family:"微軟正黑體";
+}
+td input{
+ font-family:"微軟正黑體";
+ width:100%;
+}
+table {
+ width:95%;
+ margin: 0px;
+ padding: 0px;
+ background-color:#999999;
+ font-size:0.85em;
+ font-family:"微軟正黑體";
+}
+td {
+ background-color:#FFF;
+ text-align: center;
+ margin: 0px;
+ padding: 3px;
+}
+</style>
