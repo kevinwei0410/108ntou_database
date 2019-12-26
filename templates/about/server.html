@@ -1,0 +1,15 @@
+<table cellpadding="10">
+    {% for arg in indicesServer %}
+        {% if server[arg] is null %}
+                <tr>
+                    <td> {{ arg }} </td>
+                    <td>-</td>
+                </tr>
+        {% else %}
+                <tr>
+                    <td> {{ arg }} </td>
+                    <td> {{ server[arg] }} </td>
+                </tr>
+        {% endif %}
+    {% endfor %}
+</table>
