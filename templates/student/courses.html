@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="css/schedule.css">
+<style>
+</style>
+</head>
+
+
+<body>
+    {% apply inline_css %}
+    <table class="style2">
+            <tr>
+                <th>Section</th>
+                <th>Instructor</th>
+                <th>Course</th>
+                <th>Credits</th>
+                <th>Max. Students</th>
+                <th>Students Enrolled</th>
+                <th>Semester</th>
+            </tr>
+        {% for data in result %}
+            <tr>
+                <td>{{ data["lecture_section"] }}</td>
+                <td>{{ data["instructor_name"] }}</td>
+                <td>{{ data["course_name"] }}</td>
+                <td>{{ data["course_credit"] }}</td>
+                <td>{{ data["participant_limit"] }}</td>
+                <td>{{ data["current_participant"] }}</td>
+                <td>{{ data["semester"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endapply %}
+</body>
+</html>

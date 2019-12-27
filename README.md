@@ -103,11 +103,19 @@ alter table student_schedule add constraint
 
 ## Insert Data
 ```sql
+insert into semester_course values
+('105,106,107', 'Database', 'Jeff', 3, 100, 99, '1081'),
+('205,206,207', 'Java', 'Veronica', 3, 40, 40, '1081'),
+('502,503,504', 'AI', 'Mark', 3, 80, 80, '1081'),
+('303,304,305', 'Kotlin', 'Sebastian', 3, 35, 35, '1081'),
+('202,203,204', 'Computer Vision', 'Gabriel', 3, 80, 80, '1081');
+```
+```sql
 insert into student_schedule values
-('00665625', '105,106,107', 'Jeff', 'Database', 3, '1081'),
-('00665625', '205,206,207', 'Veronica', 'Java', 3, '1081'),
-('00665625', '502,503,504', 'Mark', 'AI', 3, '1081'),
-('00633445', '105,106,107', 'Jeff', 'Database', 3, '1081'),
-('00633445', '303,304,305', 'Sebastian', 'Kotlin', 3, '1081'),
-('00633445', '202,203,204', 'Gabriel', 'Computer Vision', 3, '1081');
+('00665625', '105,106,107', 'Database', 'Jeff', 3, '1081'),
+('00665625', '205,206,207', 'Java', 'Veronica', 3, '1081'),
+('00665625', '502,503,504', 'AI', 'Mark', 3, '1081'),
+('00633445', '105,106,107', 'Database', 'Jeff', 3, '1081'),
+('00633445', '303,304,305', 'Kotlin', 'Sebastian', 3, '1081'),
+('00633445', '202,203,204', 'Computer Vision', 'Gabriel', 3, '1081');
 ```

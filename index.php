@@ -4,6 +4,19 @@ include_once 'Router.php';
 require_once 'vendor/autoload.php';
 
 $router = new Router(new Request);
+$user = 'root';
+$passwd = 'sealion';
+$dsn = 'mysql:host=localhost;dbname=DBGroup14';
+$options = array(
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_EMULATE_PREPARES => false,
+);
+
+try {
+    $db_conn = new PDO($dsn, $user, $passwd, $options);
+} catch (PDOException $e) {
+    die("Database connection failed!\n" . $e->getMessage());
+}
 
 $router->get('/', function () {
     return <<<HTML
@@ -14,24 +27,22 @@ $router->get('/', function () {
 $router->get('/home', function ($request) {
 });
 
-$router->get('/student_schedule', function ($request) {
-    $user = 'root';
-    $passwd = 'sealion';
-    $dsn = 'mysql:host=localhost;dbname=DBGroup14';
-    $options = array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    );
-
-    try {
-        $conn = new PDO($dsn, $user, $passwd, $options);
-    } catch (PDOException $e) {
-        die('Connection failed: ' . $e->getMessage());
-    }
-    $stmt = $conn->prepare("select * from student_schedule;");
-    $stmt->execute();
-    $result = $stmt->fetchAll();
+$router->get('/student_schedule', function ($request) use ($db_conn) {
+    $sql = "select * from student_schedule;";
+    $statement = $db_conn->prepare($sql);
+    $statement->execute();
+    $result = $statement->fetchAll();
     echo $request->twig->render('@student/schedule.html', [
+        'result' => $result,
+    ]);
+});
+
+$router->get('/courses', function ($request) use ($db_conn) {
+    $sql = "select * from semester_course;";
+    $statement = $db_conn->prepare($sql);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    echo $request->twig->render('@student/courses.html', [
         'result' => $result,
     ]);
 });
