@@ -20,7 +20,20 @@ try {
 
 $router->get('/', function () {
     return <<<HTML
+    <head>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <style> body{ font-family: 'Noto Sans TC', sans-serif; } </style>
+    </head>
     <h1>第十四組資料庫專案</h1>
+    <h2>Students</h2>
+    <ul>
+        <li><a href="student/schedule">Schedules</a></li>
+        <li><a href="student/courses">Courses</a></li>
+    </ul>
+    <h2>Admin</h2>
+    <ul>
+        <li><a href="admin/courses">Courses</a></li>
+    </ul>
     HTML;
 });
 
@@ -43,6 +56,16 @@ $router->get('/student/courses', function ($request) use ($db_conn) {
     $statement->execute();
     $result = $statement->fetchAll();
     echo $request->twig->render('@student/courses.html', [
+        'result' => $result,
+    ]);
+});
+
+$router->get('/admin/courses', function ($request) use ($db_conn) {
+    $sql = "select * from semester_course;";
+    $statement = $db_conn->prepare($sql);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    echo $request->twig->render('@admin/courses.html', [
         'result' => $result,
     ]);
 });

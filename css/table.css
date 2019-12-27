@@ -21,6 +21,14 @@ td input{
   font-size:0.85em;
   font-family: 'Noto Sans TC', sans-serif;
 }
+.style3 {
+  width:95%;
+  margin: 0px;
+  padding: 0px;
+  background-color: orange;
+  font-size:0.85em;
+  font-family: 'Noto Sans TC', sans-serif;
+}
 td {
   font-family: 'Noto Sans TC', sans-serif;
   background-color:#FFF;
