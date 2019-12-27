@@ -27,7 +27,7 @@ $router->get('/', function () {
 $router->get('/home', function ($request) {
 });
 
-$router->get('/student_schedule', function ($request) use ($db_conn) {
+$router->get('/student/schedule', function ($request) use ($db_conn) {
     $sql = "select * from student_schedule;";
     $statement = $db_conn->prepare($sql);
     $statement->execute();
@@ -37,7 +37,7 @@ $router->get('/student_schedule', function ($request) use ($db_conn) {
     ]);
 });
 
-$router->get('/courses', function ($request) use ($db_conn) {
+$router->get('/student/courses', function ($request) use ($db_conn) {
     $sql = "select * from semester_course;";
     $statement = $db_conn->prepare($sql);
     $statement->execute();

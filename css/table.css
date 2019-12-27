@@ -1,0 +1,30 @@
+body{
+  font-family: 'Noto Sans TC', sans-serif;
+}
+td input{
+  font-family: 'Noto Sans TC', sans-serif;
+  width:100%;
+}
+.style1 {
+  width:95%;
+  margin: 0px;
+  padding: 0px;
+  background-color:#2f7bed;
+  font-size:0.85em;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.style2 {
+  width:95%;
+  margin: 0px;
+  padding: 0px;
+  background-color:#00e65c;
+  font-size:0.85em;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+td {
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color:#FFF;
+  text-align: center;
+  margin: 0px;
+  padding: 3px;
+}

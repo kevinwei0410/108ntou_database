@@ -17,6 +17,7 @@ class Request implements IRequest
         $loader->addPath('templates/student/', 'student');
         $loader->addPath('templates/admin/', 'admin');
         $loader->addPath('templates/about/', 'about');
+        $loader->addPath('css/', 'css');
         $this->twig = new \Twig\Environment($loader);
         $this->twig->addExtension(new CssInlinerExtension());
 
