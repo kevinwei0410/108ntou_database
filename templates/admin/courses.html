@@ -4,14 +4,16 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
+    <h1>編輯課程</h1>
+    <h2>所有課程</h2>
     {% apply inline_css(source("@css/table.css")) %}
     <table class="style3">
             <tr>
+                <th id='thDel' style="display:none;">選取</th>
                 <th>Section</th>
-                <th>Instructor</th>
                 <th>Course</th>
+                <th>Instructor</th>
                 <th>Credits</th>
                 <th>Max. Students</th>
                 <th>Students Enrolled</th>
@@ -19,9 +21,10 @@
             </tr>
         {% for data in result %}
             <tr>
+                <td class="checkDel" style="display:none;"><input type="checkbox" name="course_checked"></td>
                 <td>{{ data["lecture_section"] }}</td>
-                <td>{{ data["instructor_name"] }}</td>
                 <td>{{ data["course_name"] }}</td>
+                <td>{{ data["instructor_name"] }}</td>
                 <td>{{ data["course_credit"] }}</td>
                 <td>{{ data["participant_limit"] }}</td>
                 <td>{{ data["current_participant"] }}</td>
@@ -29,6 +32,68 @@
             </tr>
         {% endfor %}
     </table>
+    <button id="btn1" type="button">新增</button>
+    <button id="btn2" type="button">刪除</button>
+    <form action="/admin/courses" method="POST">
+    <table id="tableEdit" class="style3" style="visibility: hidden;">
+            <tr>
+                <th>Section</th>
+                <th>Course</th>
+                <th>Instructor</th>
+                <th>Credits</th>
+                <th>Max. Students</th>
+                <th>Semester</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="course[section]" value="" ></td>
+                <td><input type="text" name="course[name]" value="" ></td>
+                <td><input type="text" name="course[instructor]" value="" ></td>
+                <td><input type="text" name="course[credits]" value="" ></td>
+                <td><input type="text" name="course[max_students]" value="" ></td>
+                <td><input type="text" name="course[semester]" value="" ></td>
+            </tr>
+    </table>
+    <input id="btnAdd" style="visibility: hidden;" type="submit" value="確認加入">
+    </form>
     {% endapply %}
+<script>
+function addCourse()
+{
+  let table = document.getElementById("tableEdit");
+  let visible = table.style.visibility;
+  if (visible === 'hidden'){
+      table.style.visibility = 'visible';
+      document.getElementById("btnAdd").style.visibility = 'visible';
+      document.getElementById("btn1").innerText = '取消';
+  } else if (visible === 'visible') {
+      table.style.visibility = 'hidden';
+      document.getElementById("btnAdd").style.visibility = 'hidden';
+      document.getElementById("btn1").innerText = '新增';
+  }
+}
+
+function removeCourse()
+{
+  let state = document.getElementById("thDel").style.display;
+  if (state === 'none') {
+    document.getElementById("thDel").style.display = 'block';
+    document.getElementById("btn2").innerText = '取消';
+    let candidates = document.getElementsByClassName("checkDel");
+    for (let i = 0; i < candidates.length; i++) {
+      candidates[i].style.display = 'block';
+    }
+  } else if (state === 'block') {
+    document.getElementById("thDel").style.display = 'none';
+    document.getElementById("btn2").innerText = '刪除';
+    let candidates = document.getElementsByClassName("checkDel");
+    for (let i = 0; i < candidates.length; i++) {
+      candidates[i].style.display = 'none';
+    }
+  }
+}
+
+document.getElementById("btn1").addEventListener("click", addCourse);
+document.getElementById("btn2").addEventListener("click", removeCourse);
+</script>
 </body>
 </html>

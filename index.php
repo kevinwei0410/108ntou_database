@@ -18,7 +18,7 @@ try {
     die("Database connection failed!\n" . $e->getMessage());
 }
 
-$router->get('/', function () {
+$router->get('/index.php', function () {
     return <<<HTML
     <head>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
@@ -62,6 +62,28 @@ $router->get('/student/courses', function ($request) use ($db_conn) {
 
 $router->get('/admin/courses', function ($request) use ($db_conn) {
     $sql = "select * from semester_course;";
+    $statement = $db_conn->prepare($sql);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    echo $request->twig->render('@admin/courses.html', [
+        'result' => $result,
+    ]);
+});
+
+$router->post('/admin/courses', function ($request) use ($db_conn) {
+    $sql = 'insert into semester_course values
+    (:section, :name, :instructor, :credits, :max_students, :enrolled, :semester);';
+    $statement = $db_conn->prepare($sql);
+    $statement->execute(array(
+        ':section' => $_POST['course']['section'],
+        ':name' => $_POST['course']['name'],
+        ':instructor' => $_POST['course']['instructor'],
+        ':credits' => $_POST['course']['credits'],
+        ':max_students' => $_POST['course']['max_students'],
+        ':enrolled' => 0,
+        ':semester' => $_POST['course']['semester'],
+    ));
+    $sql = 'select * from semester_course;';
     $statement = $db_conn->prepare($sql);
     $statement->execute();
     $result = $statement->fetchAll();
