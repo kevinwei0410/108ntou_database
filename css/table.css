@@ -1,55 +1,91 @@
 body{
   font-family: 'Noto Sans TC', sans-serif;
 }
-
-button {
-  height: 30px;
-  width: 100px;
-  margin: 10px;
+.style3 {
+  width: 100%;
+  font-size: 16px;
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: mediumaquamarine;
 }
 
-td {
+.style3 td {
   font-family: 'Noto Sans TC', sans-serif;
   background-color:#FFF;
-  text-align: center;
-  margin: 0px;
-  padding: 3px;
+  padding: 15px;
+  text-align: left;
 }
 
-td input{
+.query-table {
+  width: 100%;
+  background-color: gainsboro;
+  font-size: 16px;
   font-family: 'Noto Sans TC', sans-serif;
-  width:100%;
+}
+
+.query-table td > input {
+  font-family: 'Noto Sans TC', sans-serif;
+  width: 92%;
+  background-color:#FFF;
+  padding: 8px;
+  text-align: left;
 }
 
 .style1 {
-  width:95%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
   background-color:#2f7bed;
-  font-size:0.85em;
+  font-size: 16px;
   font-family: 'Noto Sans TC', sans-serif;
 }
 .style2 {
-  width:95%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
   background-color:#00e65c;
-  font-size:0.85em;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-.style3 {
-  width:95%;
-  margin: 0px;
-  padding: 0px;
-  background-color: orange;
-  font-size:0.85em;
+  font-size: 16px;
   font-family: 'Noto Sans TC', sans-serif;
 }
 
-.btnWrapper {
+.collapsible {
+  background-color: #aaa;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
   width: 100%;
-  height: 40px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+.btnConfirmAdd {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.btnConfirmDel {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.row {
   display: flex;
-  align-items: center;
-  justify-content: left;
+}
+.column {
+  flex: 50%;
+  text-align: center;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 16px;
 }

@@ -34,64 +34,59 @@
       {% endfor %}
     </table>
 
-    <div class="btnWrapper">
-      <button id="btn1" type="button">新增</button>
-      <button id="btn2" type="button">刪除</button>
-    </div>
-
+    <br/>
+    <button id="btn1" type="button" class="collapsible">新增</button>
     <form id="formAddCourse" action="/admin/courses" method="POST"
       style="display: none;">
-      <table class="style3">
-        <tr>
-          <th>Section</th>
-          <th>Course</th>
-          <th>Instructor</th>
-          <th>Credits</th>
-          <th>Max. Students</th>
-          <th>Semester</th>
-        </tr>
-        <tr>
-          <td><input type="text" name="course[section]" value=""></td>
-          <td><input type="text" name="course[name]" value=""></td>
-          <td><input type="text" name="course[instructor]" value=""></td>
-          <td><input type="text" name="course[credits]" value=""></td>
-          <td><input type="text" name="course[max_students]" value=""></td>
-          <td><input type="text" name="course[semester]" value=""></td>
-        </tr>
-      </table>
-      <input type="submit" name="confirmAdd" value="確認加入">
+      <div class="row">
+        <div class="column">
+          Section<br/>
+          Course<br/>
+          Instructor<br/>
+          Credits<br/>
+          Max. Students<br/>
+          Semester<br/>
+        </div>
+        <div class="column">
+          <input type="text" name="course[section]" value="" required><br/>
+          <input type="text" name="course[name]" value="" required><br/>
+          <input type="text" name="course[instructor]" value="" required><br/>
+          <input type="text" name="course[credits]" value="" required><br/>
+          <input type="text" name="course[max_students]" value="" required><br/>
+          <input type="text" name="course[semester]" value="" required><br/>
+        </div>
+      </div>
+      <input type="submit" name="confirmAdd" class="btnConfirmAdd" value="確認加入">
     </form>
+
+    <br/>
+    <br/>
+    <button id="btn2" type="button" class="collapsible">刪除</button>
     <form id="formRemoveCourse" action="/admin/courses" method="POST"
       style="display: none;">
-      <table class="style3">
-        <tr>
-          <th>Section</th>
-          <th>Course</th>
-          <th>Instructor</th>
-        </tr>
-        <tr>
-          <td><input type="text" name="course[section]" value=""></td>
-          <td><input type="text" name="course[name]" value=""></td>
-          <td><input type="text" name="course[instructor]" value=""></td>
-        </tr>
-      </table>
-      <input type="submit" name="confirmDel" value="確認刪除">
+      <div class="row">
+        <div class="column">
+          Section<br/>
+          Course<br/>
+          Instructor<br/>
+        </div>
+        <div class="column">
+          <input type="text" name="course[section]" value="" required><br/>
+          <input type="text" name="course[name]" value="" required><br/>
+          <input type="text" name="course[instructor]" value="" required><br/>
+        </div>
+     </div>
+      <input type="submit" name="confirmDel" class="btnConfirmDel" value="確認刪除">
     </form>
     {% endapply %}
-
-    <div id="hidden_form_container" style="display:none;"></div>
 
     <script>
     function addCourse() {
       let table = document.getElementById("formAddCourse");
       if (table.style.display === 'none') {
         table.style.display = 'block';
-        document.getElementById("btn1").innerText = '取消';
-        document.getElementById("btn2").style.display = 'none';
       } else if (table.style.display === 'block') {
         table.style.display = 'none';
-        document.getElementById("btn1").innerText = '新增';
-        document.getElementById("btn2").style.display = 'block';
       }
     }
 
@@ -99,12 +94,8 @@
       let table = document.getElementById("formRemoveCourse");
       if (table.style.display === 'none') {
         table.style.display = 'block';
-        document.getElementById("btn2").innerText = '取消';
-        document.getElementById("btn1").style.display = 'none';
       } else if (table.style.display === 'block') {
         table.style.display = 'none';
-        document.getElementById("btn2").innerText = '刪除';
-        document.getElementById("btn1").style.display = 'block';
       }
     }
 
