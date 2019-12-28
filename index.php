@@ -71,19 +71,37 @@ $router->get('/admin/courses', function ($request) use ($db_conn) {
 });
 
 $router->post('/admin/courses', function ($request) use ($db_conn) {
-    $sql = 'insert into semester_course values
-    (:section, :name, :instructor, :credits, :max_students, :enrolled, :semester);';
-    $statement = $db_conn->prepare($sql);
-    $statement->execute(array(
-        ':section' => $_POST['course']['section'],
-        ':name' => $_POST['course']['name'],
-        ':instructor' => $_POST['course']['instructor'],
-        ':credits' => $_POST['course']['credits'],
-        ':max_students' => $_POST['course']['max_students'],
-        ':enrolled' => 0,
-        ':semester' => $_POST['course']['semester'],
-    ));
-    $sql = 'select * from semester_course;';
+
+    if (isset($_POST['confirmDel'])) {
+        $sql = <<<SQL
+DELETE FROM semester_course WHERE
+lecture_section=:section AND
+course_name=:name AND
+instructor_name=:instructor;
+SQL;
+        $statement = $db_conn->prepare($sql);
+        $statement->execute(array(
+            ':section' => $_POST['course']['section'],
+            ':name' => $_POST['course']['name'],
+            ':instructor' => $_POST['course']['instructor'],
+        ));
+    } else if (isset($_POST['confirmAdd'])) {
+        $sql = <<<SQL
+INSERT INTO semester_course VALUES
+(:section, :name, :instructor, :credits, :max_students, :enrolled, :semester);
+SQL;
+        $statement = $db_conn->prepare($sql);
+        $statement->execute(array(
+            ':section' => $_POST['course']['section'],
+            ':name' => $_POST['course']['name'],
+            ':instructor' => $_POST['course']['instructor'],
+            ':credits' => $_POST['course']['credits'],
+            ':max_students' => $_POST['course']['max_students'],
+            ':enrolled' => 0,
+            ':semester' => $_POST['course']['semester'],
+        ));
+    }
+    $sql = 'SELECT * FROM semester_course;';
     $statement = $db_conn->prepare($sql);
     $statement->execute();
     $result = $statement->fetchAll();
