@@ -119,3 +119,14 @@ insert into student_schedule values
 ('00633445', '303,304,305', 'Kotlin', 'Sebastian', 3, '1081'),
 ('00633445', '202,203,204', 'Computer Vision', 'Gabriel', 3, '1081');
 ```
+```sql
+insert into student_total_credits values
+('00665625', 'Computer Science', 3, 'B', '1081', 103, 95.70, 9),
+('00633445', 'Computer Science', 3, 'A', '1081', 101, 86.10, 19),
+('00663622', 'Computer Science', 3, 'B', '1081', 98, 94.87, 10),
+('00752014', 'Computer Science', 2, 'A', '1081', 57, 66.66, 49),
+('00641608', 'Computer Science', 3, 'A', '1081', 88, 74.25, 31),
+('00533445', 'Computer Science', 4, 'B', '1081', 127, 89.33, 22),
+('00733421', 'Physics', 2, 'A', '1081', 69, 91.30, 10),
+('00733401', 'Physics', 2, 'B', '1081', 70, 88.52, 17);
+```
