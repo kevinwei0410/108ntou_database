@@ -33,6 +33,7 @@ $router->get('/index.php', function () {
     <h2>Admin</h2>
     <ul>
         <li><a href="admin/courses">Courses</a></li>
+        <li><a href="admin/graduation">Student Grduation</a></li>
     </ul>
     HTML;
 });
@@ -57,6 +58,69 @@ $router->get('/student/courses', function ($request) use ($db_conn) {
     $result = $statement->fetchAll();
     echo $request->twig->render('@student/courses.html', [
         'result' => $result,
+    ]);
+});
+
+$router->get('/admin/graduation', function ($request) use ($db_conn) {
+    $sql = "SELECT * FROM student_schedule;";
+    $statement = $db_conn->prepare($sql);
+    $statement->execute();
+    $ongoing = $statement->fetchAll();
+
+    $sql = "SELECT * FROM student_total_credits;";
+    $statement = $db_conn->prepare($sql);
+    $statement->execute();
+    $prev = $statement->fetchAll();
+    echo $request->twig->render('@admin/graduation.html', [
+        'ongoing' => $ongoing,
+        'prev' => $prev,
+        'sum' => '-',
+        'isGraduated' => '-'
+    ]);
+});
+
+$router->post('/admin/graduation', function ($request) use ($db_conn) {
+    $schedule_sql = <<<SQL
+    SELECT * FROM student_schedule WHERE student_ID = :id;
+SQL;
+    $history_total_sql = <<<SQL
+    SELECT * FROM student_total_credits WHERE student_ID = :id;
+SQL;
+    $sum_sql = <<<SQL
+    WITH this_semester_sum (student_ID, schedule_credits) AS
+    (SELECT student_ID, sum(course_credit)
+     FROM student_schedule
+     WHERE student_ID = :schedule_id
+     GROUP BY student_ID)
+     SELECT (total_credits + IFNULL(schedule_credits,0)) AS credit_sum
+     FROM this_semester_sum NATURAL RIGHT OUTER JOIN student_total_credits
+     WHERE student_ID = :total_id;
+SQL;
+    $schedule_statement = $db_conn->prepare($schedule_sql);
+    $history_total_statement = $db_conn->prepare($history_total_sql);
+    $sum_statement= $db_conn->prepare($sum_sql);
+
+    $schedule_statement->execute(array(
+        ':id' => $_POST['ID']
+    ));
+    $history_total_statement->execute(array(
+        ':id' => $_POST['ID']
+    ));
+    $sum_statement->execute(array(
+        ':schedule_id' => $_POST['ID'],
+        ':total_id' => $_POST['ID']
+    ));
+
+    $ongoing = $schedule_statement->fetchAll();
+    $prev = $history_total_statement->fetchAll();
+    $sum = $sum_statement->fetch();
+    $msg = ($sum['credit_sum'] >= 135) ? '已達畢業學分' : '未達畢業學分';
+
+    echo $request->twig->render('@admin/graduation.html', [
+        'ongoing' => $ongoing,
+        'prev' => $prev,
+        'sum' => $sum['credit_sum'],
+        'isGraduated' => $msg
     ]);
 });
 

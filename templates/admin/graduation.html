@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
+			rel="stylesheet">
+	</head>
+	{% apply inline_css(source("@css/graduation.css")) %}
+	<body>
+		<center>
+			<form action="/admin/graduation" method="POST">
+				學號: <input type="text" name="ID" required>
+				<input type="submit" name="search" value="查詢">
+			</form>
+			<title>畢業門檻</title>
+			<p>當學期學分數</p>
+			<table border='1'>
+				<tr>
+					<th>student_ID</th>
+					<th>lecture_section</th>
+					<th>course_name</th>
+					<th>instructor_name</th>
+					<th>course_credit</th>
+					<th>semester</th>
+				</tr>
+				{% for data in ongoing %}
+				<tr>
+					<td>{{ data['student_ID'] }}</td>
+					<td>{{ data['lecture_section'] }}</td>
+					<td>{{ data['course_name'] }}</td>
+					<td>{{ data['instructor_name'] }}</td>
+					<td>{{ data['course_credit'] }}</td>
+					<td>{{ data['semester'] }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+
+			<p>歷年學分數</p>
+			<table border='1'>
+				<tr>
+					<th>student_ID</th>
+					<th>department</th>
+					<th>year</th>
+					<th>class</th>
+					<th>semester</th>
+					<th>total_credits</th>
+					<th>average_score</th>
+					<th>rank</th>
+				</tr>
+				{% for data in prev %}
+				<tr>
+					<td>{{ data['student_ID'] }}</td>
+					<td>{{ data['department'] }}</td>
+					<td>{{ data['year'] }}</td>
+					<td>{{ data['class'] }}</td>
+					<td>{{ data['semester'] }}</td>
+					<td>{{ data['total_credits'] }}</td>
+					<td>{{ data['average_score'] }}</td>
+					<td>{{ data['rank'] }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<p>總學分數：{{ sum }} </p>
+			<p>{{ isGraduated }}</p>
+		</center>
+	</body>
+	{% endapply %}
+</html>
